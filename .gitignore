@@ -1,0 +1,26 @@
+# Node.js
+node_modules/
+.env
+
+# SDK-specific
+google-services.json
+Info.plist
+
+# IDEs and Editors
+.vscode/
+.idea/
+
+# Build output
+dist/
+build/
+bin/
+obj/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Temp files
+*.tmp
+
+track_my_location/obj/Debug/net9.0-android/lp/100/jl/res.zip
