@@ -1,24 +1,69 @@
-﻿namespace track_my_location;
+﻿using System;
+using Microsoft.Maui.ApplicationModel;
+using Microsoft.Maui.Controls;
+using Microsoft.Maui.Controls.Maps;
+using Microsoft.Maui.Controls.Xaml;
+using Microsoft.Maui.Devices.Sensors;
+using Microsoft.Maui.Maps;
 
-public partial class MainPage : ContentPage
+namespace track_my_location
 {
-	int count = 0;
+    public partial class MainPage : ContentPage
+    {
+        public MainPage()
+        {
+            InitializeComponent();
+        }
 
-	public MainPage()
-	{
-		InitializeComponent();
-	}
+        private async void GetCurrentLocationButton_Clicked(object sender, EventArgs e)
+        {
+            try
+            {
+                var status = await Permissions.CheckStatusAsync<Permissions.LocationWhenInUse>();
+                if (status != PermissionStatus.Granted)
+                {
+                    status = await Permissions.RequestAsync<Permissions.LocationWhenInUse>();
+                }
 
-	private void OnCounterClicked(object sender, EventArgs e)
-	{
-		count++;
+                if (status == PermissionStatus.Granted)
+                {
+                    var request = new GeolocationRequest(
+                        GeolocationAccuracy.Best,
+                        TimeSpan.FromSeconds(10)
+                    );
+                    var location = await Geolocation.GetLocationAsync(request);
 
-		if (count == 1)
-			CounterBtn.Text = $"Clicked {count} time";
-		else
-			CounterBtn.Text = $"Clicked {count} times";
+                    if (location != null)
+                    {
+                        var mapPosition = new Location(location.Latitude, location.Longitude);
 
-		SemanticScreenReader.Announce(CounterBtn.Text);
-	}
+                        LocationLabel.Text =
+                            $"Lat: {mapPosition.Latitude}, Lon: {mapPosition.Longitude}";
+
+                        MyMap.MoveToRegion(
+                            MapSpan.FromCenterAndRadius(mapPosition, Distance.FromKilometers(1))
+                        );
+
+                        Console.WriteLine(
+                            $"[DEBUG] Acquired: Lat={mapPosition.Latitude}, Lon={mapPosition.Longitude}"
+                        );
+                    }
+                    else
+                    {
+                        LocationLabel.Text =
+                            "Location is null. Ensure GPS or mock location is set.";
+                    }
+                }
+                else
+                {
+                    LocationLabel.Text = "Permission denied. Cannot fetch location.";
+                }
+            }
+            catch (Exception ex)
+            {
+                LocationLabel.Text = $"Error: {ex.Message}";
+                Console.WriteLine($"[DEBUG] Exception: {ex}");
+            }
+        }
+    }
 }
-
