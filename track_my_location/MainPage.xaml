@@ -5,17 +5,14 @@
              x:Class="track_my_location.MainPage"
              Title="Location Debug Example">
     <VerticalStackLayout Padding="20">
-        <!-- A Map control to show the user's location. -->
         <maps:Map x:Name="MyMap"
                   HeightRequest="300"
                   VerticalOptions="CenterAndExpand" />
-        <!-- A Label to show latitude/longitude or any errors. -->
         <Label x:Name="LocationLabel"
                Text="Waiting for location..."
                HorizontalOptions="Center"
                VerticalOptions="CenterAndExpand"
                FontSize="16" />
-        <!-- A button to trigger location fetch (easy for debugging). -->
         <Button Text="Get Current Location"
                 Clicked="GetCurrentLocationButton_Clicked"
                 HorizontalOptions="Center" />

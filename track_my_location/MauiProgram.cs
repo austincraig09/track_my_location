@@ -13,7 +13,7 @@ namespace track_my_location
 
             builder
                 .UseMauiApp<App>()
-                .UseMauiMaps() // IMPORTANT: This enables Maps in your MAUI app
+                .UseMauiMaps()
                 .ConfigureFonts(fonts =>
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");

@@ -5,6 +5,6 @@ public partial class App : Application
     public App()
     {
         InitializeComponent();
-        MainPage = new MainPage(); // Ensure this points to MainPage
+        MainPage = new MainPage();
     }
 }

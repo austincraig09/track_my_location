@@ -1,7 +1,6 @@
 ﻿using System;
 using Microsoft.Maui.ApplicationModel;
 using Microsoft.Maui.Controls;
-using Microsoft.Maui.Controls.Maps;
 using Microsoft.Maui.Controls.Xaml;
 using Microsoft.Maui.Devices.Sensors;
 using Microsoft.Maui.Maps;
@@ -19,6 +18,7 @@ namespace track_my_location
         {
             try
             {
+                // Check and request runtime permission for location.
                 var status = await Permissions.CheckStatusAsync<Permissions.LocationWhenInUse>();
                 if (status != PermissionStatus.Granted)
                 {
@@ -38,14 +38,14 @@ namespace track_my_location
                         var mapPosition = new Location(location.Latitude, location.Longitude);
 
                         LocationLabel.Text =
-                            $"Lat: {mapPosition.Latitude}, Lon: {mapPosition.Longitude}";
+                            $"Latitude: {location.Latitude}, Longitude: {location.Longitude}";
 
                         MyMap.MoveToRegion(
                             MapSpan.FromCenterAndRadius(mapPosition, Distance.FromKilometers(1))
                         );
 
                         Console.WriteLine(
-                            $"[DEBUG] Acquired: Lat={mapPosition.Latitude}, Lon={mapPosition.Longitude}"
+                            $"[DEBUG] Acquired: Lat={location.Latitude}, Lon={location.Longitude}"
                         );
                     }
                     else
