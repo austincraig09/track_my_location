@@ -8,6 +8,7 @@
 		<meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyCJIX_T14AS5ie74NCnVnGu815cPbQi-o4" />
+		<meta-data android:name="com.google.android.gms.version" android:value="@integer/google_play_services_version" />
 	</application>
 	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 	<uses-permission android:name="android.permission.INTERNET" />

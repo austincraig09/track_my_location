@@ -18,7 +18,6 @@ namespace track_my_location
         {
             try
             {
-                // Check and request runtime permission for location.
                 var status = await Permissions.CheckStatusAsync<Permissions.LocationWhenInUse>();
                 if (status != PermissionStatus.Granted)
                 {
